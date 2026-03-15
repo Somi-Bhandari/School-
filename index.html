@@ -607,35 +607,49 @@ Send Message
 let pages=document.querySelectorAll(".page");
 let current=0;
 
+let pages = document.querySelectorAll(".page");
+let current = 0;
+
 function showPage(i){
 pages[current].classList.remove("active");
-current=i;
+current = i;
 pages[current].classList.add("active");
-window.scrollTo(0,0);
 }
 
 function nextPage(){
-if(current<pages.length-1){
-showPage(current+1)
+if(current < pages.length-1){
+showPage(current+1);
 }
 }
 
 function prevPage(){
-if(current>0){
-showPage(current-1)
+if(current > 0){
+showPage(current-1);
 }
 }
 
 /* TIMER */
 
-const start=new Date("March 17, 2025 14:12:00").getTime();
+let startDate = new Date("2024-04-01").getTime();
 
-setInterval(()=>{
+function updateTimer(){
 
-let now=new Date().getTime();
-let diff=now-start;
+let now = new Date().getTime();
+let diff = now - startDate;
 
-document.getElementById("years").innerHTML=Math.floor(diff/(1000*60*60*24*365));
-document.getElementById("days").innerHTML=Math.floor((diff%(1000*60*60*24*365))/(1000*60*60*24));
-document.getElementById("hours").innerHTML=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-document.getElementById("minutes").innerHTML=Math.floor((dif
+let seconds = Math.floor(diff/1000);
+let minutes = Math.floor(seconds/60);
+let hours = Math.floor(minutes/60);
+let days = Math.floor(hours/24);
+let years = Math.floor(days/365);
+
+document.getElementById("years").innerText = years;
+document.getElementById("days").innerText = days % 365;
+document.getElementById("hours").innerText = hours % 24;
+document.getElementById("minutes").innerText = minutes % 60;
+document.getElementById("seconds").innerText = seconds % 60;
+
+}
+
+setInterval(updateTimer,1000);
+  
